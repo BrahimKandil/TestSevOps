@@ -4,34 +4,41 @@ import com.example.demo.controller.UserController;
 import com.example.demo.model.User;
 import com.example.demo.service.UserService;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.test.web.servlet.MockMvc;
-
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import java.util.List;
-
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-@WebMvcTest(UserController.class)  // Focuses on the UserController for testing.
+@ExtendWith(MockitoExtension.class)
 class UserControllerTest {
 
-    @Autowired
-    private MockMvc mockMvc;  // Used for simulating HTTP requests and responses
+    private MockMvc mockMvc;
 
-    private UserService userService;  // Mocks the UserService to be injected into UserController
+    @Mock
+    private UserService userService;
+
+    @InjectMocks
+    private UserController userController;
 
     @Test
     void testGetAllUsers() throws Exception {
-        // Setup the mock service behavior
-        List<User> users = List.of(new User(1L, "Alice"));
-        Mockito.when(userService.getAllUsers()).thenReturn(users);
+        // Setup MockMvc to use our controller
+        mockMvc = MockMvcBuilders.standaloneSetup(userController).build();
 
-        // Perform a mock HTTP GET request and verify the results
+        // Mock service behavior
+        List<User> users = List.of(new User(1L, "Alice"));
+        when(userService.getAllUsers()).thenReturn(users);
+
+        // Perform and verify request
         mockMvc.perform(get("/users"))
-                .andExpect(status().isOk())  // Expect HTTP 200 OK
-                .andExpect(jsonPath("$[0].name").value("Alice"));  // Verify that Alice's name is returned
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$[0].id").value(1))
+                .andExpect(jsonPath("$[0].name").value("Alice"));
     }
 }

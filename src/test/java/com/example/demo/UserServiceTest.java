@@ -1,22 +1,18 @@
 package com.example.demo;
+
 import com.example.demo.model.User;
 import com.example.demo.repository.UserRepository;
 import com.example.demo.service.UserService;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
-
-
-import java.util.Arrays;
 import java.util.List;
-
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-
 class UserServiceTest {
 
     @Mock
@@ -27,21 +23,25 @@ class UserServiceTest {
 
     @Test
     void testGetAllUsers() {
-        List<User> users = Arrays.asList(new User(1L, "Alice"), new User(2L, "Bob"));
-        Mockito.when(userRepository.findAll()).thenReturn(users);
+        List<User> users = List.of(
+                new User(1L, "Alice"),
+                new User(2L, "Bob")
+        );
+        when(userRepository.findAll()).thenReturn(users);
 
         List<User> result = userService.getAllUsers();
-        Assertions.assertEquals(2, result.size());
+        assertEquals(2, result.size());
+        assertEquals("Alice", result.get(0).getName());
     }
 
     @Test
     void testCreateUser() {
-        User user = new User( "Charlie");
+        User inputUser = new User("Charlie");
         User savedUser = new User(1L, "Charlie");
-        Mockito.when(userRepository.save(user)).thenReturn(savedUser);
+        when(userRepository.save(any(User.class))).thenReturn(savedUser);
 
-        User result = userService.addUser(user.getName());
-        Assertions.assertEquals("Charlie", result.getName());
-        Assertions.assertNotNull(result.getId());
+        User result = userService.addUser("Charlie");
+        assertEquals("Charlie", result.getName());
+        assertEquals(1L, result.getId());
     }
 }

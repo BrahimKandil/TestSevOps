@@ -2,12 +2,11 @@ package com.example.demo;
 
 import com.example.demo.model.User;
 import com.example.demo.repository.UserRepository;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-
 import java.util.List;
+import static org.junit.jupiter.api.Assertions.*;
 
 @DataJpaTest
 class UserRepositoryTest {
@@ -17,10 +16,11 @@ class UserRepositoryTest {
 
     @Test
     void testSaveAndFindUser() {
-        User user = new User(null, "Dave");
+        User user = new User("Dave");  // Assuming constructor takes just name
         userRepository.save(user);
 
         List<User> found = userRepository.findAll();
-        Assertions.assertFalse(found.isEmpty());
+        assertFalse(found.isEmpty());
+        assertEquals("Dave", found.get(0).getName());
     }
 }
