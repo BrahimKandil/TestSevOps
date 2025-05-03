@@ -2,24 +2,46 @@ package com.example.demo;
 import com.example.demo.model.User;
 import com.example.demo.repository.UserRepository;
 import com.example.demo.service.UserService;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.junit.jupiter.MockitoExtension;
 
+
+import java.util.Arrays;
 import java.util.List;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.*;
+
+
+@ExtendWith(MockitoExtension.class)
 
 class UserServiceTest {
 
+    @Mock
+    private UserRepository userRepository;
+
+    @InjectMocks
+    private UserService userService;
+
     @Test
-    void getAllUsersReturnsUsers() {
-        UserRepository mockRepo = mock(UserRepository.class);
-        when(mockRepo.findAll()).thenReturn(List.of(new User("Alice")));
+    void testGetAllUsers() {
+        List<User> users = Arrays.asList(new User(1L, "Alice"), new User(2L, "Bob"));
+        Mockito.when(userRepository.findAll()).thenReturn(users);
 
-        UserService service = new UserService(mockRepo);
-        List<User> users = service.getAllUsers();
+        List<User> result = userService.getAllUsers();
+        Assertions.assertEquals(2, result.size());
+    }
 
-        assertEquals(1, users.size());
-        assertEquals("Alice", users.get(0).getName());
+    @Test
+    void testCreateUser() {
+        User user = new User( "Charlie");
+        User savedUser = new User(1L, "Charlie");
+        Mockito.when(userRepository.save(user)).thenReturn(savedUser);
+
+        User result = userService.addUser(user.getName());
+        Assertions.assertEquals("Charlie", result.getName());
+        Assertions.assertNotNull(result.getId());
     }
 }
