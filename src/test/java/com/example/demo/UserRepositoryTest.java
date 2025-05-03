@@ -5,10 +5,16 @@ import com.example.demo.repository.UserRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
+import org.springframework.test.context.ActiveProfiles;
+
 import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 @DataJpaTest
+@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
+@ActiveProfiles("test")
 class UserRepositoryTest {
 
     @Autowired
@@ -16,7 +22,7 @@ class UserRepositoryTest {
 
     @Test
     void testSaveAndFindUser() {
-        User user = new User("Dave");  // Assuming constructor takes just name
+        User user = new User("Dave");
         userRepository.save(user);
 
         List<User> found = userRepository.findAll();
