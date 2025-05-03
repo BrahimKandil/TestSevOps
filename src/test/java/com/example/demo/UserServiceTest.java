@@ -36,7 +36,6 @@ class UserServiceTest {
 
     @Test
     void testCreateUser() {
-        User inputUser = new User("Charlie");
         User savedUser = new User(1L, "Charlie");
         when(userRepository.save(any(User.class))).thenReturn(savedUser);
 
