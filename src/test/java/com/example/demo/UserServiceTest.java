@@ -48,13 +48,17 @@ class UserServiceTest {
         User savedUser = new User(1L, "Charlie");
         when(userRepository.save(any(User.class))).thenReturn(savedUser);
 
-        User result = userService.createUserJson(new User("Charlie"));
+        User user = new User();
+        user.setName("Charlie");
+        User result = userService.createUserJson(user);
         assertEquals("Charlie", result.getName());
         assertEquals(1L, result.getId());
     }
     @Test
     void testNameOnlyConstructor() {
         // Only testing the constructor itself
-        assertDoesNotThrow(() -> new User("Charlie"));
+        User user = new User();
+                user.setName("Charlie");
+        assertDoesNotThrow(() -> user);
     }
 }

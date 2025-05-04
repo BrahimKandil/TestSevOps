@@ -19,7 +19,9 @@ public class UserService {
     }
 
     public User createUser(String name) {
-        return repository.save(new User(name));
+        User user = new User();
+        user.setName(name);
+        return repository.save(user);
     }
     public User createUserJson(User user) {
         return repository.save(user);

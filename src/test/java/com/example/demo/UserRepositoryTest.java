@@ -22,7 +22,8 @@ class UserRepositoryTest {
 
     @Test
     void testSaveAndFindUser() {
-        User user = new User("Dave");
+        User user = new User();
+        user.setName("Dave");
         userRepository.save(user);
 
         List<User> found = userRepository.findAll();
