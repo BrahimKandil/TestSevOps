@@ -2,34 +2,87 @@ package com.example.demo;
 
 import com.example.demo.model.User;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.DisplayName;
+
+import java.lang.reflect.Field;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class UserTest {
 
     @Test
+    @DisplayName("Test no-args constructor and default values")
     void testNoArgConstructor() {
         User user = new User();
-        user.setId(1L);
-        user.setName("Alice");
 
-        // Explicitly call Lombok-generated getters
-        assertEquals(1L, user.getId());
-        assertEquals("Alice", user.getName());
+        assertAll(
+                () -> assertNull(user.getId(), "ID should be null initially"),
+                () -> assertNull(user.getName(), "Name should be null initially")
+        );
     }
 
     @Test
+    @DisplayName("Test all-args constructor")
     void testAllArgsConstructor() {
-        User user = new User(2L, "Bob");
+        Long expectedId = 1L;
+        String expectedName = "Alice";
+        User user = new User(expectedId, expectedName);
 
-        assertEquals(2L, user.getId());
-        assertEquals("Bob", user.getName());
+        assertAll(
+                () -> assertEquals(expectedId, user.getId(), "ID should match constructor arg"),
+                () -> assertEquals(expectedName, user.getName(), "Name should match constructor arg")
+        );
     }
 
     @Test
+    @DisplayName("Test name-only constructor")
     void testNameOnlyConstructor() {
-        User user = new User("Charlie");
+        String expectedName = "Bob";
+        User user = new User(expectedName);
 
-        assertNull(user.getId()); // ID should be null before persistence
-        assertEquals("Charlie", user.getName());
+        assertAll(
+                () -> assertNull(user.getId(), "ID should be null in name-only constructor"),
+                () -> assertEquals(expectedName, user.getName(), "Name should match constructor arg")
+        );
+    }
+
+    @Test
+    @DisplayName("Test field assignments via reflection")
+    void testFieldAssignments() throws Exception {
+        User user = new User(2L, "Charlie");
+
+        Field idField = User.class.getDeclaredField("id");
+        idField.setAccessible(true);
+        assertEquals(2L, idField.get(user), "ID field should be set via reflection");
+
+        Field nameField = User.class.getDeclaredField("name");
+        nameField.setAccessible(true);
+        assertEquals("Charlie", nameField.get(user), "Name field should be set via reflection");
+    }
+
+    @Test
+    @DisplayName("Test setters")
+    void testSetters() {
+        User user = new User();
+
+        user.setId(3L);
+        user.setName("David");
+
+        assertAll(
+                () -> assertEquals(3L, user.getId(), "Setter should set ID"),
+                () -> assertEquals("David", user.getName(), "Setter should set name")
+        );
+    }
+
+    @Test
+    @DisplayName("Test Lombok annotations")
+    void testLombokAnnotations() {
+        assertAll(
+                "Verify all Lombok-generated methods exist",
+                () -> assertDoesNotThrow(() -> User.class.getMethod("getId")),
+                () -> assertDoesNotThrow(() -> User.class.getMethod("getName")),
+                () -> assertDoesNotThrow(() -> User.class.getMethod("setId", Long.class)),
+                () -> assertDoesNotThrow(() -> User.class.getMethod("setName", String.class))
+        );
     }
 }
