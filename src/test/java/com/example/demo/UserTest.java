@@ -7,21 +7,18 @@ import static org.junit.jupiter.api.Assertions.*;
 class UserTest {
 
     @Test
-    void testNoArgConstructorAndSettersAndGetters() {
+    void testNoArgConstructor() {
         User user = new User();
         user.setId(1L);
         user.setName("Alice");
 
         // Explicitly call Lombok-generated getters
-        Long id = user.getId();
-        String name = user.getName();
-
-        assertEquals(1L, id);
-        assertEquals("Alice", name);
+        assertEquals(1L, user.getId());
+        assertEquals("Alice", user.getName());
     }
 
     @Test
-    void testAllArgsConstructorAndGetters() {
+    void testAllArgsConstructor() {
         User user = new User(2L, "Bob");
 
         assertEquals(2L, user.getId());
@@ -29,7 +26,7 @@ class UserTest {
     }
 
     @Test
-    void testNameOnlyConstructorAndGetters() {
+    void testNameOnlyConstructor() {
         User user = new User("Charlie");
 
         assertNull(user.getId()); // ID should be null before persistence
