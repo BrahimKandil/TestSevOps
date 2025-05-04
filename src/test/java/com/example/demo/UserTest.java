@@ -35,6 +35,13 @@ class UserTest {
         );
     }
     @Test
+    void testNameOnlyConstructor() {
+        User user = new User("Charlie");  // This calls the constructor
+
+        assertNull(user.getId());         // Verify ID is null
+        assertEquals("Charlie", user.getName());  // Verify name was set
+    }
+    @Test
     @DisplayName("Test name-only constructor")
     void testUser() {
         String expectedName = "Bob";
