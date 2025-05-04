@@ -88,7 +88,7 @@ class UserTest {
     }
     @Test
     @DisplayName("Verify User class file structure")
-    void testUserClassStructure() throws Exception {
+    void testUserClassStructure() {
         Constructor<?>[] constructors = User.class.getDeclaredConstructors();
         assertEquals(3, constructors.length, "Should have 3 constructors");
 
