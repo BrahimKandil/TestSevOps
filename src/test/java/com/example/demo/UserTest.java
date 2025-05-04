@@ -34,7 +34,17 @@ class UserTest {
                 () -> assertEquals(expectedName, user.getName(), "Name should match constructor arg")
         );
     }
+    @Test
+    @DisplayName("Test name-only constructor")
+    void testUser() {
+        String expectedName = "Bob";
+        User user = new User(expectedName);
 
+        assertAll(
+                () -> assertNull(user.getId(), "ID should be null in name-only constructor"),
+                () -> assertEquals(expectedName, user.getName(), "Name should match constructor arg")
+        );
+    }
     @Test
     @DisplayName("Test name-only constructor")
     void testNameOnlyConstructor() {
