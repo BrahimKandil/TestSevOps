@@ -10,9 +10,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 class DemoApplicationTests {
 
     @Test
-    void testMain() {
-        // Ensure the Spring application context can load without errors
-        assertDoesNotThrow(() -> DemoApplication.main(new String[] {}));
+    public void applicationStarts() {
+        DemoApplication.main(new String[] {});
     }
 
     @Test
