@@ -67,7 +67,7 @@ class UserControllerTest {
         User user = new User(1L, "Charlie");
         when(userService.createUserJson(user)).thenReturn(user);
 
-        mockMvc.perform(post("/users")
+        mockMvc.perform(post("/users/create")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{\"name\":\"Charlie\"}"))
                 .andExpect(status().isOk())

@@ -21,11 +21,11 @@ public class UserController {
         return service.getAllUsers();
     }
 
-    @PostMapping
+    @PostMapping("/param")
     public User createUserFromParam(@RequestParam String name) {
         return service.createUser(name);
     }
-    @PostMapping
+    @PostMapping("/create")
     public User createUser(@RequestBody User user) {
         return service.createUserJson(user);
     }
