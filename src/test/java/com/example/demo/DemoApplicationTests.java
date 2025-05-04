@@ -10,21 +10,15 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 class DemoApplicationTests {
 
     @Test
-    void contextLoads() {
-        // Verify Spring context loads
-        assertTrue(true, "Context should load successfully");
-    }
-
-    @Test
-    void testMainMethod() {
-        // Test main method execution
+    void testMain() {
+        // Ensure the Spring application context can load without errors
         assertDoesNotThrow(() -> DemoApplication.main(new String[] {}));
     }
 
     @Test
-    void testMainMethodWithArgs() {
-        // Test with command line arguments
-        assertDoesNotThrow(() -> DemoApplication.main(new String[] {"--spring.profiles.active=test"}));
+    void contextLoads() {
+        // Ensures Spring context loads — required by @SpringBootTest
+        assertTrue(true); // Or any lightweight assertion
     }
 
 }

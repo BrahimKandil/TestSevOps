@@ -52,4 +52,9 @@ class UserServiceTest {
         assertEquals("Charlie", result.getName());
         assertEquals(1L, result.getId());
     }
+    @Test
+    void testNameOnlyConstructor() {
+        // Only testing the constructor itself
+        assertDoesNotThrow(() -> new User("Charlie"));
+    }
 }
