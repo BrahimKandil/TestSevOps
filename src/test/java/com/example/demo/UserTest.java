@@ -4,6 +4,7 @@ import com.example.demo.model.User;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.DisplayName;
 
+import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -84,5 +85,20 @@ class UserTest {
                 () -> assertDoesNotThrow(() -> User.class.getMethod("setId", Long.class)),
                 () -> assertDoesNotThrow(() -> User.class.getMethod("setName", String.class))
         );
+    }
+    @Test
+    @DisplayName("Verify User class file structure")
+    void testUserClassStructure() throws Exception {
+        Constructor<?>[] constructors = User.class.getDeclaredConstructors();
+        assertEquals(3, constructors.length, "Should have 3 constructors");
+
+        // Verify no-args constructor
+        assertDoesNotThrow(() -> User.class.getConstructor());
+
+        // Verify (Long, String) constructor
+        assertDoesNotThrow(() -> User.class.getConstructor(Long.class, String.class));
+
+        // Verify (String) constructor
+        assertDoesNotThrow(() -> User.class.getConstructor(String.class));
     }
 }
