@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 class DemoApplicationTests {
 
     @Test
-    public void applicationStarts() {
+     void applicationStarts() {
         DemoApplication.main(new String[] {});
     }
 
