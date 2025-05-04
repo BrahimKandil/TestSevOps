@@ -13,6 +13,8 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import java.util.List;
+
+import static org.mockito.ArgumentMatchers.argThat;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -64,13 +66,11 @@ class UserControllerTest {
 
     @Test
     void testCreateUser() throws Exception {
-        // This is the user expected to be returned by the service
         User savedUser = new User(1L, "Charlie");
 
-        // This is the user that will be passed into the service method
-        User requestUser = new User(null, "Charlie");
-
-        when(userService.createUserJson(requestUser)).thenReturn(savedUser);
+        // Match any User with name "Charlie"
+        when(userService.createUserJson(argThat(user -> "Charlie".equals(user.getName()))))
+                .thenReturn(savedUser);
 
         mockMvc.perform(post("/users/create")
                         .contentType(MediaType.APPLICATION_JSON)
