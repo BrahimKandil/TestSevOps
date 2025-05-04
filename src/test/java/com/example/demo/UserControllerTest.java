@@ -3,6 +3,7 @@ package com.example.demo;
 import com.example.demo.controller.UserController;
 import com.example.demo.model.User;
 import com.example.demo.service.UserService;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -21,6 +22,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 class UserControllerTest {
 
     private MockMvc mockMvc;
+    @BeforeEach
+    void setup() {
+        mockMvc = MockMvcBuilders.standaloneSetup(userController).build();
+    }
 
     @Mock
     private UserService userService;
