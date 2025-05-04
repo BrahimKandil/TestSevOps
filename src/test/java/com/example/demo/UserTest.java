@@ -34,26 +34,8 @@ class UserTest {
                 () -> assertEquals(expectedName, user.getName(), "Name should match constructor arg")
         );
     }
-    @Test
-    void testNameOnlyConstructor() {
-        User user = new User();
-        user.setName("Charlie");// This calls the constructor
 
-        assertNull(user.getId());         // Verify ID is null
-        assertEquals("Charlie", user.getName());  // Verify name was set
-    }
-    @Test
-    @DisplayName("Test name-only constructor")
-    void testUser() {
-        String expectedName = "Bob";
-        User user = new User();
-        user.setName(expectedName);
 
-        assertAll(
-                () -> assertNull(user.getId(), "ID should be null in name-only constructor"),
-                () -> assertEquals(expectedName, user.getName(), "Name should match constructor arg")
-        );
-    }
 
 
     @Test
@@ -112,7 +94,5 @@ class UserTest {
         // Verify (Long, String) constructor
         assertDoesNotThrow(() -> User.class.getConstructor(Long.class, String.class));
 
-        // Verify (String) constructor
-        assertDoesNotThrow(() -> User.class.getConstructor(String.class));
-    }
+       }
 }

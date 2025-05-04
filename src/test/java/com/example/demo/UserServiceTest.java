@@ -57,8 +57,6 @@ class UserServiceTest {
     @Test
     void testNameOnlyConstructor() {
         // Only testing the constructor itself
-        User user = new User();
-                user.setName("Charlie");
-        assertDoesNotThrow(() -> user);
+        assertDoesNotThrow(() -> new User().setName("Charlie"));
     }
 }
