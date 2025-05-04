@@ -25,4 +25,8 @@ public class UserController {
     public User createUser(@RequestParam String name) {
         return service.addUser(name);
     }
+    @PostMapping
+    public User createUser(@RequestBody User user) {
+        return service.addUser(user);
+    }
 }

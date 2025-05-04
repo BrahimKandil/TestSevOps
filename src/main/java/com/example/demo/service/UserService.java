@@ -21,4 +21,7 @@ public class UserService {
     public User addUser(String name) {
         return repository.save(new User(name));
     }
+    public User addUser(User user) {
+        return repository.save(user);
+    }
 }

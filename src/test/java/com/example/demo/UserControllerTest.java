@@ -48,6 +48,20 @@ class UserControllerTest {
                 .andExpect(jsonPath("$[0].id").value(1))
                 .andExpect(jsonPath("$[0].name").value("Alice"));
     }
+
+    @Test
+    void testCreateUserFromParam() throws Exception {
+        User user = new User(1L, "Charlie");
+        when(userService.addUser("Charlie")).thenReturn(user);
+
+        mockMvc.perform(post("/users/param")
+                        .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                        .param("name", "Charlie"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id").value(1))
+                .andExpect(jsonPath("$.name").value("Charlie"));
+    }
+
     @Test
     void testCreateUser() throws Exception {
         User user = new User(1L, "Charlie");

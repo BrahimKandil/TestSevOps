@@ -43,4 +43,13 @@ class UserServiceTest {
         assertEquals("Charlie", result.getName());
         assertEquals(1L, result.getId());
     }
+    @Test
+    void testCreateUserJson() {
+        User savedUser = new User(1L, "Charlie");
+        when(userRepository.save(any(User.class))).thenReturn(savedUser);
+
+        User result = userService.addUser(new User("Charlie"));
+        assertEquals("Charlie", result.getName());
+        assertEquals(1L, result.getId());
+    }
 }
