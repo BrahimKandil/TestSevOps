@@ -64,8 +64,13 @@ class UserControllerTest {
 
     @Test
     void testCreateUser() throws Exception {
-        User user = new User(1L, "Charlie");
-        when(userService.createUserJson(user)).thenReturn(user);
+        // This is the user expected to be returned by the service
+        User savedUser = new User(1L, "Charlie");
+
+        // This is the user that will be passed into the service method
+        User requestUser = new User(null, "Charlie");
+
+        when(userService.createUserJson(requestUser)).thenReturn(savedUser);
 
         mockMvc.perform(post("/users/create")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -74,4 +79,5 @@ class UserControllerTest {
                 .andExpect(jsonPath("$.id").value(1))
                 .andExpect(jsonPath("$.name").value("Charlie"));
     }
+
 }
