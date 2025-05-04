@@ -39,7 +39,7 @@ class UserServiceTest {
         User savedUser = new User(1L, "Charlie");
         when(userRepository.save(any(User.class))).thenReturn(savedUser);
 
-        User result = userService.addUser("Charlie");
+        User result = userService.createUser("Charlie");
         assertEquals("Charlie", result.getName());
         assertEquals(1L, result.getId());
     }
@@ -48,7 +48,7 @@ class UserServiceTest {
         User savedUser = new User(1L, "Charlie");
         when(userRepository.save(any(User.class))).thenReturn(savedUser);
 
-        User result = userService.addUser(new User("Charlie"));
+        User result = userService.createUserJson(new User("Charlie"));
         assertEquals("Charlie", result.getName());
         assertEquals(1L, result.getId());
     }

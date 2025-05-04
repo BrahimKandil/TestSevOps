@@ -22,11 +22,11 @@ public class UserController {
     }
 
     @PostMapping
-    public User createUser(@RequestParam String name) {
-        return service.addUser(name);
+    public User createUserFromParam(@RequestParam String name) {
+        return service.createUser(name);
     }
     @PostMapping
     public User createUser(@RequestBody User user) {
-        return service.addUser(user);
+        return service.createUserJson(user);
     }
 }

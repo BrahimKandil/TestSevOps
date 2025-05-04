@@ -52,7 +52,7 @@ class UserControllerTest {
     @Test
     void testCreateUserFromParam() throws Exception {
         User user = new User(1L, "Charlie");
-        when(userService.addUser("Charlie")).thenReturn(user);
+        when(userService.createUser("Charlie")).thenReturn(user);
 
         mockMvc.perform(post("/users/param")
                         .contentType(MediaType.APPLICATION_FORM_URLENCODED)
@@ -65,7 +65,7 @@ class UserControllerTest {
     @Test
     void testCreateUser() throws Exception {
         User user = new User(1L, "Charlie");
-        when(userService.addUser("Charlie")).thenReturn(user);
+        when(userService.createUserJson(user)).thenReturn(user);
 
         mockMvc.perform(post("/users")
                         .contentType(MediaType.APPLICATION_JSON)

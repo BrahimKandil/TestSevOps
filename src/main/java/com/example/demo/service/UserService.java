@@ -18,10 +18,10 @@ public class UserService {
         return repository.findAll();
     }
 
-    public User addUser(String name) {
+    public User createUser(String name) {
         return repository.save(new User(name));
     }
-    public User addUser(User user) {
+    public User createUserJson(User user) {
         return repository.save(user);
     }
 }
