@@ -10,8 +10,10 @@ class DemoApplicationTests {
     void testMain() {
         DemoApplication.main(new String[] {});
     }
+
     @Test
     void contextLoads() {
+        throw new UnsupportedOperationException("This test is intentionally not implemented");
     }
 
 }
