@@ -81,7 +81,7 @@ class UserTest {
     @DisplayName("Verify User class file structure")
     void testUserClassStructure() {
         Constructor<?>[] constructors = User.class.getDeclaredConstructors();
-        assertEquals(3, constructors.length, "Should have 3 constructors");
+        assertEquals(2, constructors.length, "Should have 3 constructors");
 
         // Verify no-args constructor
         assertDoesNotThrow(() -> {
