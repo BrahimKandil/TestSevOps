@@ -7,6 +7,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 class DemoApplicationTests {
 
     @Test
+    void testMain() {
+        DemoApplication.main(new String[] {});
+    }
+    @Test
     void contextLoads() {
     }
 
