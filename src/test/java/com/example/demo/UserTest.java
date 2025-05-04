@@ -93,8 +93,13 @@ class UserTest {
         assertEquals(3, constructors.length, "Should have 3 constructors");
 
         // Verify no-args constructor
-        assertDoesNotThrow(() -> User.class.getConstructor());
-
+        assertDoesNotThrow(() -> {
+            try {
+                User.class.getConstructor();
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        });
         // Verify (Long, String) constructor
         assertDoesNotThrow(() -> User.class.getConstructor(Long.class, String.class));
 
