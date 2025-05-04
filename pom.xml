@@ -141,6 +141,7 @@
                 <configuration>
                     <excludes>
                         <exclude>**/model/*.class</exclude> <!-- Exclude DTOs if needed -->
+                        <exclude>**/DemoApplication.class</exclude> <!-- Excludes the whole class -->
                     </excludes>
                 </configuration>
             </plugin>
