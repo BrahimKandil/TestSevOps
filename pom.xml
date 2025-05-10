@@ -139,9 +139,6 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <excludes>
-                        <exclude>**/model/*.class</exclude> <!-- Exclude DTOs if needed -->
-                    </excludes>
                 </configuration>
             </plugin>
             <plugin>
