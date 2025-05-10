@@ -1,15 +1,15 @@
-//package com.example.demo;
-//
-//import com.example.demo.model.User;
-//import org.junit.jupiter.api.Test;
-//import org.junit.jupiter.api.DisplayName;
-//
-//import java.lang.reflect.Constructor;
-//import java.lang.reflect.Field;
-//
-//import static org.junit.jupiter.api.Assertions.*;
-//
-//class UserTest {
+package com.example.demo;
+
+import com.example.demo.model.User;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.DisplayName;
+
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+class UserTest {}
 //
 //    @Test
 //    @DisplayName("Test no-args constructor and default values")
